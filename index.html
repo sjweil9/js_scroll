@@ -29,16 +29,28 @@
 			el = document.getElementById('magic'),
 			word_counter = 0,
 			character_counter = 0;
+		
+		function getRandomRGB() {
+				var color = "rgb(" + String(Math.floor(Math.random()*256)) + ", " + String(Math.floor(Math.random()*256)) + ", " + String(Math.floor(Math.random()*256)) + ")";
+				return color;
+			}
 
 		function updateText()
 		{
-			el.innerHTML = el.innerHTML+words[word_counter][character_counter++];
+			if(words[word_counter][character_counter] == " ") {
+				el.innerHTML += "&nbsp";
+			}
+			else {
+				el.innerHTML += words[word_counter][character_counter];
+			}
+			character_counter++;
 
-			if(character_counter == words[word_counter].length)
+			if(character_counter == words[word_counter].length + 1)
 			{
 				word_counter++; 	//choose a different word
 				character_counter = 0;	//start over with the first character of the word
 				el.innerHTML = '';  //set the html to be blank
+				el.style.color = getRandomRGB();
 
 				//if we're displaying the last word, go back to the first word
 				if(word_counter == words.length)
